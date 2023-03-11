@@ -9,19 +9,16 @@ An input string is valid if:
 """
 
 
-def is_valid(arr: str) -> bool:
+def is_valid(chars: str) -> bool:
+    map_parentheses = {"[": "]", "{": "}", "(": ")"}
     stack = []
-    mapping = {")": "(", "}": "{", "]": "["}
-    for element in arr:
-        if element in mapping:
-            top_element = stack.pop() if stack else "#"
-
-            if mapping[element] != top_element:
-                return False
-
+    for char in chars:
+        if char in map_parentheses:
+            stack.append(char)
         else:
-            stack.append(element)
-
+            top_bracket = stack.pop()
+            if map_parentheses[top_bracket] != char:
+                return False
     return not stack
 
 
