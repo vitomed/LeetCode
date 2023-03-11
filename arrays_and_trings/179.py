@@ -16,8 +16,11 @@ def is_valid(chars: str) -> bool:
         if char in map_parentheses:
             stack.append(char)
         else:
-            top_bracket = stack.pop()
-            if map_parentheses[top_bracket] != char:
+            if stack:
+                top_bracket = stack.pop()
+                if map_parentheses[top_bracket] != char:
+                    return False
+            else:
                 return False
     return not stack
 
@@ -27,3 +30,4 @@ if __name__ == '__main__':
     assert is_valid("()[]{}")
     assert not is_valid("(]")
     assert not is_valid("(((((((((()")
+    assert not is_valid(")(")
