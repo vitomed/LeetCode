@@ -1,20 +1,4 @@
-def isPalindrome(s: str) -> bool:
-    start, finish = 0, len(s) - 1
-    while start < finish:
-        while start < finish and not s[start].isalnum():
-            start += 1
-        while start < finish and not s[finish].isalnum():
-            finish -= 1
-        if s[start].lower() != s[finish].lower():
-            return False
-
-        start += 1
-        finish -= 1
-
-    return True
-
-
-def checkPalindrome(s: str):
+def is_palindrome(s: str):
     left_point, right_point = 0, len(s) - 1
     while left_point < right_point:
         while left_point < right_point and not s[left_point].isalnum():
@@ -30,5 +14,6 @@ def checkPalindrome(s: str):
 
     return True
 
+
 if __name__ == '__main__':
-    checkPalindrome(s='A man, a plan, a canal: Panama')
+    assert is_palindrome(s='A man, a plan, a canal: Panama')
