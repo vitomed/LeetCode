@@ -8,5 +8,5 @@ def longest_palindromic_subsequence(s: str) -> int:
 
 
 if __name__ == '__main__':
-    assert longest_palindromic_subsequence("bbbab") == 4
+    assert longest_palindromic_subsequence("bbbab bs") == 4
     assert longest_palindromic_subsequence("cbbd") == 2
