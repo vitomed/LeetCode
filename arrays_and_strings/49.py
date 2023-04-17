@@ -14,9 +14,13 @@ def group_anagrams(arr: list) -> list:
 
     Space Complexity: O(NK), the total information content stored in `ans`.
     """
-    m = collections.defaultdict(list)
+    m = {}
     for item in arr:
-        m[tuple(sorted(item))].append(item)
+        if tuple(sorted(item)) in m:
+            m[tuple(sorted(item))].append(item)
+        else:
+            m[tuple(sorted(item))] = [item]
+
     for sub_array in m.values():
         sub_array.sort()
     answer = list(m.values())[::-1]
