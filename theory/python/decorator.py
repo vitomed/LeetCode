@@ -1,11 +1,12 @@
 import asyncio
-
+import functools
 
 def decorator(func):
     """
     sync decorator
     """
 
+    @functools.wraps(func)
     def wrapper(*args, **kwargs):
         print("decorator")
         result = func(*args, **kwargs)
@@ -18,7 +19,7 @@ def async_decorator(async_func):
     """
     python decorator
     """
-
+    @functools.wraps(async_func)
     async def wrapper(*args, **kwargs):
         print("python decorator")
         result = await async_func(*args, **kwargs)
@@ -31,8 +32,8 @@ def decorator_with_param(param):
     """
     sync decorator with param
     """
-
     def decorator(func):
+        @functools.wraps(func)
         def wrapper(*args, **kwargs):
             print(f"decorator with param: {param}")
             result = func(*args, **kwargs)
@@ -49,8 +50,9 @@ def async_decorator_with_param(param):
     """
 
     def decorator(async_func):
+        @functools.wraps(async_func)
         async def wrapper(*args, **kwargs):
-            print(f"python decorator with param: {param}")
+            print(f"async decorator with param: {param}")
             result = await async_func(*args, **kwargs)
             return result
 
