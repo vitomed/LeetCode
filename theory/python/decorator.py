@@ -16,11 +16,11 @@ def decorator(func):
 
 def async_decorator(async_func):
     """
-    async decorator
+    python decorator
     """
 
     async def wrapper(*args, **kwargs):
-        print("async decorator")
+        print("python decorator")
         result = await async_func(*args, **kwargs)
         return result
 
@@ -45,12 +45,12 @@ def decorator_with_param(param):
 
 def async_decorator_with_param(param):
     """
-    async decorator with param
+    python decorator with param
     """
 
     def decorator(async_func):
         async def wrapper(*args, **kwargs):
-            print(f"async decorator with param: {param}")
+            print(f"python decorator with param: {param}")
             result = await async_func(*args, **kwargs)
             return result
 
