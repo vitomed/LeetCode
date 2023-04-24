@@ -8,3 +8,58 @@ The four key properties of a transaction are commonly referred to as the ACID pr
 * Isolation: A transaction is isolated from other transactions that are executing concurrently. This means that the operations in a transaction do not interfere with the operations in another transaction, even if they are executing simultaneously.
 * Durability: Once a transaction is committed, its changes to the database are permanent and will survive any subsequent system failures, such as power outages or crashes.
 ---
+### explain
+
+When you want to read a table, PostgreSQL has many ways to do it. The simpler one is to read it sequentially, block by block.
+```sql
+db=# explain select  * from users;
+                           QUERY PLAN                           
+----------------------------------------------------------------
+Seq Scan on users  (cost=0.00..15406.00 rows=1000000 width=14)
+```
+
+**Seq Scan** - read all the rows of a tabble sequentially. <br/>
+**cost** - the first cost number is the cost to get the first row, 
+the second number is the cost to get all the rows from the sequential scan.<br/>
+**rows** - estimated number of rows output by this plan node.<br/>
+**width** - estimated average width of rows output by this plan node (in bytes).
+
+### pg_stats. Width.
+```sql
+SELECT sum(avg_width) AS width FROM pg_stats
+WHERE tablename='users';
+...
+ width 
+-------
+    14
+(1 row)
+```
+**Average size (in bytes) of a row in the resulting data set.** 
+
+### pg_stats. Rows.
+```sql
+SELECT reltuples FROM pg_class WHERE relname='users';
+...
+ reltuples 
+-----------
+     1e+06
+(1 row)
+```
+**All relations metadata appear in the pg_class catalog.**
+
+### explain analyze
+
+```sql
+explain analyze select  * from users;
+                          QUERY PLAN                                                
+ --------------------------------------------------------------------------------
+Seq Scan on users  (cost=0.00..15406.00 rows=1000000 width=14)
+(actual time=0.023..6974.370 rows=1000000 loops=1)
+ Planning Time: 0.099 ms
+ Execution Time: 13644.037 ms
+(3 rows)
+```
+**actual time** - the time taken to run the query. <br/>
+**rows** - reql number of rows. <br/>
+**loops** - number of loops. <br/>
+**Execution Time** - real execution time in milliseconds.
