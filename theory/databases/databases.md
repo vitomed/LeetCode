@@ -8,7 +8,7 @@ The four key properties of a transaction are commonly referred to as the ACID pr
 * Isolation: A transaction is isolated from other transactions that are executing concurrently. This means that the operations in a transaction do not interfere with the operations in another transaction, even if they are executing simultaneously.
 * Durability: Once a transaction is committed, its changes to the database are permanent and will survive any subsequent system failures, such as power outages or crashes.
 ---
-### explain
+### explain.
 
 When you want to read a table, PostgreSQL has many ways to do it. The simpler one is to read it sequentially, block by block.
 ```sql
@@ -47,7 +47,7 @@ SELECT reltuples FROM pg_class WHERE relname='users';
 ```
 **All relations metadata appear in the pg_class catalog.**
 
-### explain analyze
+### explain analyze.
 
 ```sql
 explain analyze select  * from users;
@@ -63,3 +63,29 @@ Seq Scan on users  (cost=0.00..15406.00 rows=1000000 width=14)
 **rows** - reql number of rows. <br/>
 **loops** - number of loops. <br/>
 **Execution Time** - real execution time in milliseconds.
+
+### buffers.
+
+```sql
+EXPLAIN (ANALYZE,BUFFERS) SELECT * FROM users;
+...
+                         QUERY PLAN                                               
+---------------------------------------------------------------------------------------------
+Seq Scan on users (cost=0.00..15406.00 rows=1000000 width=14)
+(actual time=0.022..11558.195 rows=1000000 loops=1)
+ Buffers: shared hit=5406
+ Planning Time: 0.037 ms
+ Execution Time: 22673.007 ms
+ ...
+ EXPLAIN (ANALYZE,BUFFERS) SELECT * FROM users;
+ ...
+                         QUERY PLAN                                               
+---------------------------------------------------------------------------------------------
+ Seq Scan on users  (cost=0.00..15406.00 rows=1000000 width=14)
+(actual time=0.022..11649.875 rows=1000000 loops=1)
+ Buffers: shared hit=5406
+ Planning Time: 0.136 ms
+ Execution Time: 22832.806 ms
+(4 rows)
+```
+
