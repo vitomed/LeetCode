@@ -61,3 +61,110 @@ def count_stats():
 # counter
 # упадет при int(http_status)
 # разделение ответственности
+
+
+# 2
+# принимает список и отдает список строк
+# async def download(urls: list) -> list[str]:
+# чтобы сделал чтобы можно было качать ограничение на количество подлкючений нужно добавить Семафор
+# Семафоры позволяют ограничить доступ к ресурсам определенным числом потоков или задач
+import aiohttp
+import asyncio
+
+
+async def download(urls: list, max_connections: int) -> list[str]:
+    async with aiohttp.ClientSession() as session:
+        semaphore = asyncio.Semaphore(max_connections)
+        tasks = []
+        for url in urls:
+            tasks.append(download_url(session, url, semaphore))
+        results = await asyncio.gather(*tasks)
+        return results
+
+async def download_url(session, url, semaphore):
+    async with semaphore:
+        async with session.get(url) as response:
+            text = await response.text()
+            return text
+
+urls = ["http://example.com", "http://example.org", "http://example.net"]
+result = asyncio.run(download(urls, 2))
+print(result)
+
+
+#напиши классы модели  для базы данных
+"""
+Клиенты (инн, фио)
+Счета (чей счет, номер счета)
+Платежи (откуда, куда, сколько, когда)
+"""
+
+class Client:
+    id = Column(int)
+    inn = Column(string)
+    fio = Column(string)
+
+class Account:
+    id = Column(int)
+    colient_id = Column(int)
+    number = Column(str)
+
+
+class Payment:
+    id = Column(int)
+    from_account_id = Column(int)
+    to_account_id = Column(int)
+    amount = Column(int)
+    data = Column(datetime)
+"""
+Если в базе данных установлено ограничение Foreign Key Constraint (FK) 
+для столбцов from_account_id и to_account_id в таблице payment,
+
+на что мы можем расчитывать если есть этот тип ограничение
+и сработает ли этот запрос:
+
+insert into payment values from_account_id = 123, to_account_id = 345, ...;
+"""
+
+# без нормализации
+
+"""
+Для получения 10 самых крупных счетов можно использовать следующий SQL-запрос:
+
+SELECT number, SUM(amount) AS total_amount
+FROM Account
+JOIN Payment ON Account.id = Payment.from_account_id
+GROUP BY Account.id, Account.number
+ORDER BY total_amount DESC
+LIMIT 10;
+"""
+
+# после денормалзации
+
+class Client:
+    id = Column(int)
+    inn = Column(string)
+    fio = Column(string)
+
+class Account:
+    id = Column(int)
+    colient_id = Column(int)
+    number = Column(str)
+    amount = Column(Integer)
+
+
+class Payment:
+    id = Column(int)
+    from_account_id = Column(int)
+    to_account_id = Column(int)
+    amount = Column(int)
+    data = Column(datetime)
+
+"""
+Для получения 10 самых крупных счетов можно использовать следующий SQL-запрос:
+
+SELECT number, amount
+FROM Account
+ORDER BY amount DESC
+LIMIT 10;
+"""

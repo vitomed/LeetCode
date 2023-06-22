@@ -1,0 +1,4 @@
+db:
+	docker-compose up
+
+

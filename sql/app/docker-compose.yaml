@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:13.3
+    container_name: db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "db"
+      POSTGRES_USER: "vitomed"
+      POSTGRES_PASSWORD: "password"
+    volumes:
+      - sql-db-data:/var/lib/mysql
+
+
+volumes:
+  sql-db-data:
+    external: true
