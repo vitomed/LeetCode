@@ -2,6 +2,7 @@ version: "3.8"
 services:
   postgres:
     image: postgres:15.2
+    container_name: "postgres-hwork-db"
     environment:
       POSTGRES_DB: "db"
       POSTGRES_USER: "user"
@@ -10,4 +11,8 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ".:/var/lib/postgresql/data"
+      - postgres-hwork-volume:/var/lib/postgresql/data
+
+volumes:
+  postgres-hwork-volume:
+    external: true

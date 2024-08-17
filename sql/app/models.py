@@ -8,6 +8,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.asyncio import create_async_engine
 
+from app.utils import get_logger
+
+logger = get_logger(__name__)
 
 DATABASE_URL = "postgresql+asyncpg://vitomed:password@localhost/db"
 engine = create_async_engine(DATABASE_URL, echo=True)
@@ -19,10 +22,18 @@ async def get_session() -> AsyncSession:
         yield session
 
 
+async def drop_all_tables():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+        logger.info("drop_all")
+
+
 async def init_models():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
+        logger.info("drop_all")
         await conn.run_sync(Base.metadata.create_all)
+        logger.info("create_all")
 
 
 class Base(AsyncAttrs, DeclarativeBase):
