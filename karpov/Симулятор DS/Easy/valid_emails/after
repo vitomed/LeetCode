@@ -1,0 +1,76 @@
+/Users/vitomed/PycharmProjects/my/hwork/karpov/.venv/bin/python /Users/vitomed/PycharmProjects/my/hwork/karpov/Симулятор DS/Easy/valid_emails.py
+              0 MAKE_CELL                4 (valid_email_regex)
+
+ 10           2 RESUME                   0
+
+ 13           4 LOAD_GLOBAL              1 (NULL + re)
+             14 LOAD_ATTR                2 (compile)
+             34 LOAD_CONST               1 ('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z]{2,}$')
+             36 CALL                     1
+             44 STORE_DEREF              4 (valid_email_regex)
+
+ 15          46 LOAD_CONST               2 ('email')
+             48 LOAD_GLOBAL              4 (str)
+             58 LOAD_CONST               3 ('return')
+             60 LOAD_GLOBAL              6 (bool)
+             70 BUILD_TUPLE              4
+             72 LOAD_CLOSURE             4 (valid_email_regex)
+             74 BUILD_TUPLE              1
+             76 LOAD_CONST               4 (<code object is_valid_email at 0x10c7f8b30, file "/Users/vitomed/PycharmProjects/my/hwork/karpov/Симулятор DS/Easy/valid_emails.py", line 15>)
+             78 MAKE_FUNCTION           12 (annotations, closure)
+             80 STORE_FAST               1 (is_valid_email)
+
+ 18          82 BUILD_LIST               0
+             84 STORE_FAST               2 (emails)
+
+ 19          86 LOAD_FAST                0 (strings)
+             88 GET_ITER
+        >>   90 FOR_ITER                28 (to 150)
+             94 STORE_FAST               3 (email)
+
+ 20          96 PUSH_NULL
+             98 LOAD_FAST                1 (is_valid_email)
+            100 LOAD_FAST                3 (email)
+            102 CALL                     1
+            110 POP_JUMP_IF_TRUE         1 (to 114)
+            112 JUMP_BACKWARD           12 (to 90)
+
+ 21     >>  114 LOAD_FAST                2 (emails)
+            116 LOAD_ATTR                9 (NULL|self + append)
+            136 LOAD_FAST                3 (email)
+            138 CALL                     1
+            146 POP_TOP
+            148 JUMP_BACKWARD           30 (to 90)
+
+ 19     >>  150 END_FOR
+
+ 23         152 LOAD_FAST                2 (emails)
+            154 RETURN_VALUE
+
+Disassembly of <code object is_valid_email at 0x10c7f8b30, file "/Users/vitomed/PycharmProjects/my/hwork/karpov/Симулятор DS/Easy/valid_emails.py", line 15>:
+              0 COPY_FREE_VARS           1
+
+ 15           2 RESUME                   0
+
+ 16           4 LOAD_GLOBAL              1 (NULL + bool)
+             14 LOAD_DEREF               1 (valid_email_regex)
+             16 LOAD_ATTR                3 (NULL|self + fullmatch)
+             36 LOAD_FAST                0 (email)
+             38 CALL                     1
+             46 CALL                     1
+             54 RETURN_VALUE
+None
+
+сProfile
+With Compilation:
+         8005 function calls in 0.005 seconds
+
+   Ordered by: internal time
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     4000    0.002    0.000    0.002    0.000 {method 'fullmatch' of 're.Pattern' objects}
+     4000    0.002    0.000    0.004    0.000 /Users/vitomed/PycharmProjects/my/hwork/karpov/Симулятор DS/Easy/test.py:20(is_valid_email)
+        1    0.001    0.001    0.005    0.005 /Users/vitomed/PycharmProjects/my/hwork/karpov/Симулятор DS/Easy/test.py:16(with_compilation)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/__init__.py:280(_compile)
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+        1    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/__init__.py:226(compile)

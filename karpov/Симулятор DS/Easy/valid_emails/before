@@ -1,0 +1,123 @@
+/Users/vitomed/PycharmProjects/my/hwork/karpov/.venv/bin/python /Users/vitomed/PycharmProjects/my/hwork/karpov/Симулятор DS/Easy/valid_emails.py
+              0 MAKE_CELL                4 (valid_email_regex)
+
+ 10           2 RESUME                   0
+
+ 13           4 LOAD_CONST               1 ('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z]{2,}$')
+              6 STORE_DEREF              4 (valid_email_regex)
+
+ 15           8 LOAD_CONST               2 ('email')
+             10 LOAD_GLOBAL              0 (str)
+             20 LOAD_CONST               3 ('return')
+             22 LOAD_GLOBAL              2 (bool)
+             32 BUILD_TUPLE              4
+             34 LOAD_CLOSURE             4 (valid_email_regex)
+             36 BUILD_TUPLE              1
+             38 LOAD_CONST               4 (<code object is_valid_email at 0x10e7fecd0, file "/Users/vitomed/PycharmProjects/my/hwork/karpov/Симулятор DS/Easy/valid_emails.py", line 15>)
+             40 MAKE_FUNCTION           12 (annotations, closure)
+             42 STORE_FAST               1 (is_valid_email)
+
+ 18          44 BUILD_LIST               0
+             46 STORE_FAST               2 (emails)
+
+ 19          48 LOAD_FAST                0 (strings)
+             50 GET_ITER
+        >>   52 FOR_ITER                28 (to 112)
+             56 STORE_FAST               3 (email)
+
+ 20          58 PUSH_NULL
+             60 LOAD_FAST                1 (is_valid_email)
+             62 LOAD_FAST                3 (email)
+             64 CALL                     1
+             72 POP_JUMP_IF_TRUE         1 (to 76)
+             74 JUMP_BACKWARD           12 (to 52)
+
+ 21     >>   76 LOAD_FAST                2 (emails)
+             78 LOAD_ATTR                5 (NULL|self + append)
+             98 LOAD_FAST                3 (email)
+            100 CALL                     1
+            108 POP_TOP
+            110 JUMP_BACKWARD           30 (to 52)
+
+ 19     >>  112 END_FOR
+
+ 23         114 LOAD_FAST                2 (emails)
+            116 RETURN_VALUE
+
+Disassembly of <code object is_valid_email at 0x10e7fecd0, file "/Users/vitomed/PycharmProjects/my/hwork/karpov/Симулятор DS/Easy/valid_emails.py", line 15>:
+              0 COPY_FREE_VARS           1
+
+ 15           2 RESUME                   0
+
+ 16           4 LOAD_GLOBAL              1 (NULL + bool)
+             14 LOAD_GLOBAL              3 (NULL + re)
+             24 LOAD_ATTR                4 (fullmatch)
+             44 LOAD_DEREF               1 (valid_email_regex)
+             46 LOAD_FAST                0 (email)
+             48 CALL                     2
+             56 CALL                     1
+             64 RETURN_VALUE
+None
+
+cProfile
+Without Compilation:
+         20455 function calls (20445 primitive calls) in 0.012 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     4000    0.003    0.000    0.003    0.000 {method 'fullmatch' of 're.Pattern' objects}
+     4000    0.002    0.000    0.009    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/__init__.py:169(fullmatch)
+     4000    0.002    0.000    0.010    0.000 /Users/vitomed/PycharmProjects/my/hwork/karpov/Симулятор DS/Easy/test.py:10(is_valid_email)
+     4000    0.002    0.000    0.004    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/__init__.py:280(_compile)
+     4043    0.001    0.000    0.001    0.000 {built-in method builtins.isinstance}
+        1    0.001    0.001    0.012    0.012 /Users/vitomed/PycharmProjects/my/hwork/karpov/Симулятор DS/Easy/test.py:7(without_compilation)
+        1    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:512(_parse)
+      4/1    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_compiler.py:37(_compile)
+        3    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_compiler.py:243(_optimize_charset)
+        1    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:452(_parse_sub)
+        1    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_compiler.py:573(_code)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        2    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_compiler.py:386(_mk_bitmap)
+       77    0.000    0.000    0.000    0.000 {method 'append' of 'list' objects}
+       28    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:168(__getitem__)
+       34    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:261(get)
+        1    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_compiler.py:511(_compile_info)
+       46    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:240(__next)
+    58/54    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        1    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_compiler.py:740(compile)
+        1    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:969(parse)
+      4/1    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:178(getwidth)
+        2    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/enum.py:1562(__and__)
+       24    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:256(match)
+       15    0.000    0.000    0.000    0.000 {method 'find' of 'bytearray' objects}
+        3    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_compiler.py:216(_compile_charset)
+        6    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/enum.py:1544(_get_value)
+        7    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:176(append)
+        3    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:449(_uniq)
+        2    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/enum.py:726(__call__)
+        7    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:293(tell)
+       23    0.000    0.000    0.000    0.000 {built-in method builtins.ord}
+        1    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:372(_escape)
+       10    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:164(__len__)
+        8    0.000    0.000    0.000    0.000 {built-in method builtins.min}
+        3    0.000    0.000    0.000    0.000 {built-in method fromkeys}
+        3    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_compiler.py:398(_simple)
+        1    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:231(__init__)
+        1    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_compiler.py:436(_get_literal_prefix)
+        4    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method _sre.compile}
+        2    0.000    0.000    0.000    0.000 {method 'translate' of 'bytearray' objects}
+        2    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/enum.py:1129(__new__)
+        4    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:113(__init__)
+        2    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_compiler.py:570(isstring)
+        3    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:172(__setitem__)
+        1    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_compiler.py:467(_get_charset_prefix)
+        2    0.000    0.000    0.000    0.000 {method 'extend' of 'list' objects}
+        1    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:953(fix_flags)
+        2    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:83(groups)
+        1    0.000    0.000    0.000    0.000 {method 'pop' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_parser.py:77(__init__)
+        2    0.000    0.000    0.000    0.000 /usr/local/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/python3.12/re/_compiler.py:428(_get_iscased)
+        1    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
+
